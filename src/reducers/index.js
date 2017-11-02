@@ -1,9 +1,10 @@
 
 import { combineReducers } from 'redux'
-import messages from './messages_reducer'
+import transmissions from './transmissions_reducer'
 import rooms from './rooms_reducer'
 import user from './user_reducer'
+import languages from './languages_reducer'
 
 export default combineReducers({
-  messages, rooms, user
+  transmissions, rooms, user, languages
 });

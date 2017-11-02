@@ -1,71 +1,29 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import openSocket from 'socket.io-client'
-import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
+// import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
+import { createSocket } from './actions/transmissions'
+import { fetchLanguages } from './actions/languages'
+import ChatContainer from './containers/ChatContainer'
 
 class App extends Component {
 
-  state={
-    messageDisplay: "",
-    currentLanguage: "en"
-  }
-
   componentWillMount(){
-    this.socket = openSocket('http://localhost:3001')
+    this.props.createSocket(openSocket('http://localhost:3001'))
   }
 
   componentDidMount(){
-    console.log("Component Mounted")
-    this.socket.on(`chatMsg-${this.state.currentLanguage}`, (msg)=>{
-        this.setState({messageDisplay: this.state.messageDisplay + ' ' + msg })
-    })
-  }
-
-  handleSubmit= (event)=>{
-    event.preventDefault();
-    console.log("Emitted")
-    this.socket.emit('chat message', event.target.children[0].value)
-    this.setState({messageDisplay: this.state.messageDisplay + ' ' + event.target.children[0].value})
-  }
-
-
-  handleLanguageSubmit= (event)=>{
-    event.preventDefault();
-    this.socket.off(`chatMsg-${this.state.currentLanguage}`)
-    this.setState({
-      currentLanguage: event.target.children[0].value
-      },
-      ()=>{
-        this.socket.on(`chatMsg-${this.state.currentLanguage}`, (msg)=>{
-          this.setState({messageDisplay: this.state.messageDisplay + ' ' + msg })
-        })
-      }
-    )
-    this.socket.emit('set language', event.target.children[0].value);
+    this.props.fetchLanguages()
   }
 
   render() {
     return (
       <div className="App">
-        <p>{this.state.messageDisplay}</p>
-        <form onSubmit={this.handleSubmit}>
-          <input type="textarea"></input>
-        </form>
-        <form onSubmit={this.handleLanguageSubmit}>
-          <input type="textarea"></input>
-        </form>
+        <ChatContainer />
       </div>
     );
   }
 }
 
 
-const mapStateToProps = (state)=>{
-  console.log(state)
-}
-
-const mapDispatchToProps = (dispatch)=>{
-  console.log(dispatch)
-}
-
-export const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
+export const ConnectedApp = connect( null, { createSocket, fetchLanguages })(App)
