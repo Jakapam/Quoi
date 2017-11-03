@@ -1,33 +1,40 @@
 import React, { Component } from 'react'
 import { setLanguage } from '../actions/languages'
+import { Dropdown } from 'semantic-ui-react'
 import { receiveMsg } from '../actions/transmissions'
 import { connect } from 'react-redux';
 
 class LanguageSelector extends Component{
 
-  handleChange = (event) =>{
+  handleChange = (event, {value}) =>{
+    console.log(value)
     this.props.socket.off(`chatMsg-${this.props.currentLanguage}`)
-    this.props.socket.on(`chatMsg-${event.target.value}`, (msg)=>{
+    this.props.socket.on(`chatMsg-${value}`, (msg)=>{
       this.props.receiveMsg(msg)
     })
 
-    this.props.setLanguage(event.target.value)
-    this.props.socket.emit('setLanguage', event.target.value);
+    this.props.setLanguage(value)
+    this.props.socket.emit('setLanguage', value);
   }
 
   render(){
-
-    console.log(this.props.socket._callbacks)
-
     const languageOptions = this.props.languages.map((language, index)=>{
-      return <option value={language.code} key={index}>{language.name}</option>
+      return {value:language.code, key:language.name, text: language.name}
     })
 
 
     return(
-      <select onChange={this.handleChange}>
-        {languageOptions}
-      </select>
+      <Dropdown
+        onChange={this.handleChange}
+        button
+        className='icon'
+        floating
+        labeled
+        icon='world'
+        placeholder='Select Language'
+        options={languageOptions}
+        search
+      />
     )
   }
 

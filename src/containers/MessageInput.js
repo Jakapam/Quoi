@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
+import { Form } from 'semantic-ui-react'
 import { sendMsg } from '../actions/transmissions'
 import { connect } from 'react-redux';
 
 class MessageInput extends Component{
 
   state = {
-    msgInput: ""
+    msgInput: "",
+    lengthError: true
   }
 
 
   handleSubmit= (event)=>{
-    event.preventDefault();
+    console.log("submitted")
     const msg={
       sender: this.props.username,
       content: this.state.msgInput,
@@ -24,17 +26,17 @@ class MessageInput extends Component{
     })
   }
 
-  handleChange= (event)=>{
+  handleChange= (event, {value})=>{
     this.setState({
-      msgInput: event.target.value
+      msgInput: value
     })
   }
 
   render(){
     return(
-      <form onSubmit={this.handleSubmit}>
-        <input type="textarea" onChange={this.handleChange} value={this.state.msgInput}></input>
-      </form>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Input type="textarea" onChange={this.handleChange} value={this.state.msgInput}/>
+      </Form>
     )
   }
 
