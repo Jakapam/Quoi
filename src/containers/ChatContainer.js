@@ -4,7 +4,6 @@ import { receiveMsg } from '../actions/transmissions'
 import { setLanguage } from '../actions/languages'
 import { connect } from 'react-redux';
 
-
 class ChatContainer extends Component{
 
   componentDidMount(){
@@ -21,7 +20,7 @@ class ChatContainer extends Component{
 
     return(
       <div>
-        <h1 style={{fontSize: 60, color: 'white', textAlign: "center"}}>Babbly Fish</h1>
+        <h1 style={{fontSize: 60, color: 'white', textAlign: "center"}}>globeChatter</h1>
         <Room incoming={incomingMsgs} outgoing={outgoingMsgs}/>
       </div>
     )
@@ -29,6 +28,7 @@ class ChatContainer extends Component{
 }
 
 const mapStateToProps = (state)=>{
+  console.log(state)
   return{
     messages: state.transmissions.messages,
     socket: state.transmissions.socket

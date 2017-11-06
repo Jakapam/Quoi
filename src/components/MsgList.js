@@ -17,7 +17,7 @@ const MsgList= (props)=>{
   const msgList = [...incoming, ...outgoing].sort((msgA, msgB)=> {return msgA.props.msg.timestamp - msgB.props.msg.timestamp})
 
   return(
-    <div style={{height: '75vh', overflow: 'auto', backgroundColor: 'white', borderRadius: '2%', margin: 10}}>
+    <div style={{paddingTop: 10, height: '75vh', overflow: 'auto', backgroundColor: 'white', borderRadius: '2%', marginBottom: 25}}>
       <List>
         {msgList}
       </List>

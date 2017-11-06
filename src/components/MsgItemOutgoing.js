@@ -6,7 +6,6 @@ const MsgItemOutGoing= (props)=>{
   const itemStyle = {
     marginTop: 5,
     marginRight: 10,
-    padding: 3,
     borderRadius: 5,
     backgroundColor: '#2b252e',
     color: 'white',

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import openSocket from 'socket.io-client'
-// import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 import { createSocket } from './actions/transmissions'
 import { fetchLanguages } from './actions/languages'
+import { setUser } from './actions/users'
 import ChatContainer from './containers/ChatContainer'
+import { Route, withRouter } from 'react-router-dom'
+import SignUp from './containers/SignUp'
+import Login from './containers/Login'
+import { userIsNotAuthenticated, userIsAuthenticated } from './utils/authentication'
 
 class App extends Component {
 
@@ -13,17 +17,26 @@ class App extends Component {
   }
 
   componentDidMount(){
+    if(localStorage.getItem('token')){
+      this.props.setUser(localStorage.getItem('token'))
+    }
     this.props.fetchLanguages()
   }
 
   render() {
+
     return (
       <div className="App">
-        <ChatContainer />
+        <Route path='/chat' component={userIsAuthenticated(ChatContainer)} />
+        <Route path='/login' component={userIsNotAuthenticated(Login)} />
+        <Route path='/signup' component={SignUp} />
       </div>
     );
   }
 }
 
+const mapStateToProps = (state)=>{
+  return { users: state.users }
+}
 
-export const ConnectedApp = connect( null, { createSocket, fetchLanguages })(App)
+export default withRouter(connect(mapStateToProps, { createSocket, fetchLanguages, setUser })(App))

@@ -11,7 +11,7 @@ const Room = (props)=>{
         <MsgList incoming={props.incoming} outgoing={props.outgoing}/>
         <Grid>
           <Grid.Row>
-            <Grid.Column width={11} floated='right'>
+            <Grid.Column width={11}>
               <MessageInput/>
             </Grid.Column>
             <Grid.Column width={5} floated='right'>

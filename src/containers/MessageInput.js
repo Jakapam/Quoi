@@ -11,7 +11,7 @@ class MessageInput extends Component{
   }
 
 
-  handleSubmit= (event)=>{
+  handleSubmit= ()=>{
     console.log("submitted")
     const msg={
       sender: this.props.username,
@@ -35,7 +35,10 @@ class MessageInput extends Component{
   render(){
     return(
       <Form onSubmit={this.handleSubmit}>
-        <Form.Input type="textarea" onChange={this.handleChange} value={this.state.msgInput}/>
+        <Form.Input type="textarea"
+          placeholder='enter a message'
+          floated="right"
+          onChange={this.handleChange} value={this.state.msgInput}/>
       </Form>
     )
   }
@@ -43,8 +46,9 @@ class MessageInput extends Component{
 }
 
 const mapStateToProps = (state)=>{
+  console.log(state.user)
   return {
-    username: state.user.username,
+    username: state.user.user.username,
     socket: state.transmissions.socket
   }
 }

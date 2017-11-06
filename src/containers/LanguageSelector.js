@@ -26,9 +26,10 @@ class LanguageSelector extends Component{
     return(
       <Dropdown
         onChange={this.handleChange}
+        upward
         button
         className='icon'
-        floating
+        floated='right'
         labeled
         icon='world'
         placeholder='Select Language'
