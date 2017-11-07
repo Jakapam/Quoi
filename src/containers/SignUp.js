@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Message } from 'semantic-ui-react'
 import { signUp } from '../actions/users'
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom'
+import StyledSpan from '../components/StyledSpan'
+import { createSocket } from '../actions/transmissions'
 
 class SignUp extends Component{
 
@@ -13,15 +15,17 @@ class SignUp extends Component{
     errorMsg: ""
   }
 
-
   handleSubmit= ()=>{
     if(this.state.passwordConfirm === "" ||
     this.state.password === "" ||
     this.state.username === ""){
       this.setState({ errorMsg: "All Fields Must Be Filled In"})
-    }else if(this.state.password !== this.state.passwordConfirm){
+    } else if(this.state.password !== this.state.passwordConfirm){
       this.setState({errorMsg: "Password and Confirmation Must Match"} )
+    } else if(this.state.password.length < 6){
+      this.setState({errorMsg: "Password must be longer than 6 characters"} )
     } else {
+      this.props.createSocket();
       this.props.signUp({
         username: this.state.username,
         password: this.state.password,
@@ -42,8 +46,8 @@ class SignUp extends Component{
   render(){
     return(
       <div>
-        <h1 style={{fontSize: 60, color: 'white', textAlign: "center"}}>Sign up for globeChatter!</h1>
-        <Form onSubmit={this.handleSubmit}>
+        <h2 style={{fontSize: 40, color: 'white', textAlign: "center"}}>Sign up</h2>
+        <Form error={!!this.state.errorMsg} onSubmit={this.handleSubmit}>
           <Form.Input type="text"
             placeholder='enter username'
             name='username'
@@ -61,11 +65,16 @@ class SignUp extends Component{
             value={this.state.passwordConfirm}/>
           <Button type="submit"
             style={{display:'none'}}>submit</Button>
+          <Message
+            error
+             content={this.state.errorMsg}
+           />
         </Form>
+        <h4 style={{ color: 'white', textAlign: "center"}}>Already have an account?<Link to="/login">&nbsp;<StyledSpan text={"Log In"}/></Link>!</h4>
       </div>
     )
   }
 
 }
 
-export default connect(null, {signUp})(SignUp)
+export default connect(null, {signUp, createSocket})(SignUp)

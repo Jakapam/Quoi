@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@google-cloud/translate": "^1.1.0",
+    "animate.css": "^3.5.2",
+    "radium": "^0.19.6",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",

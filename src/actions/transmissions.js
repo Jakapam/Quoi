@@ -1,7 +1,6 @@
-export const createSocket = (socket) =>{
-  return{
-    type: 'CREATE_SOCKET',
-    payload: socket
+export const createSocket = () =>{
+    return{
+    type: 'CREATE_SOCKET'
   }
 }
 
@@ -15,6 +14,12 @@ export const sendMsg = (msg) => {
 export const receiveMsg = (msg) => {
   return{
     type: 'RECEIVE_MESSAGE',
+    payload: msg
+  }
+}
+export const systemMsg = (msg) => {
+  return{
+    type: 'SYSTEM_MESSAGE',
     payload: msg
   }
 }

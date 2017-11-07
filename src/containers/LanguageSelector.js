@@ -7,14 +7,18 @@ import { connect } from 'react-redux';
 class LanguageSelector extends Component{
 
   handleChange = (event, {value}) =>{
-    console.log(value)
+
+    const currentLang = this.props.languages.find((lang)=>{
+      return lang.code === value
+    })
+
     this.props.socket.off(`chatMsg-${this.props.currentLanguage}`)
     this.props.socket.on(`chatMsg-${value}`, (msg)=>{
       this.props.receiveMsg(msg)
     })
 
     this.props.setLanguage(value)
-    this.props.socket.emit('setLanguage', value);
+    this.props.socket.emit('setLanguage', {code: value, name: currentLang.name});
   }
 
   render(){
@@ -49,4 +53,4 @@ const mapStateToProps = (state)=>{
   }
 }
 
-export default connect(mapStateToProps, { setLanguage,receiveMsg })(LanguageSelector)
+export default connect(mapStateToProps, { setLanguage, receiveMsg })(LanguageSelector)

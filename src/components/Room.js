@@ -8,7 +8,7 @@ const Room = (props)=>{
   return(
     <div style={{marginTop: 30}}>
       <Container>
-        <MsgList incoming={props.incoming} outgoing={props.outgoing}/>
+        <MsgList scrollRef={props.scrollRef} incoming={props.incoming} outgoing={props.outgoing} system={props.system}/>
         <Grid>
           <Grid.Row>
             <Grid.Column width={11}>
