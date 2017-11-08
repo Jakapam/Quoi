@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import {createStore, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import 'semantic-ui-css/semantic.min.css';
+import 'animate.css/animate.min.css'
 import './App.css'
 
 

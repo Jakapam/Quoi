@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import StyledSpan from '../components/StyledSpan'
 import { createSocket } from '../actions/transmissions'
+import { Container, Grid } from 'semantic-ui-react'
 
 class SignUp extends Component{
 
@@ -45,7 +46,7 @@ class SignUp extends Component{
 
   render(){
     return(
-      <div>
+      <Container className="animated fadeIn" >
         <h2 style={{fontSize: 40, color: 'white', textAlign: "center"}}>Sign up</h2>
         <Form error={!!this.state.errorMsg} onSubmit={this.handleSubmit}>
           <Form.Input type="text"
@@ -71,7 +72,7 @@ class SignUp extends Component{
            />
         </Form>
         <h4 style={{ color: 'white', textAlign: "center"}}>Already have an account?<Link to="/login">&nbsp;<StyledSpan text={"Log In"}/></Link>!</h4>
-      </div>
+      </Container>
     )
   }
 

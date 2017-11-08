@@ -8,7 +8,7 @@ class MessageInput extends Component{
   state = {
     msgInput: "",
     messageInfo: `140 characters remaining`,
-    lengthError: true,
+    animationError: false,
     msgLimit: 140
   }
 
@@ -26,8 +26,18 @@ class MessageInput extends Component{
       this.props.socket.emit('chatMsgServer', msg)
       this.setState({
         msgInput: "",
-        messageInfo: `140 characters remaining`
+        messageInfo: `${this.state.msgLimit} characters remaining`,
+        animationError: false
       })
+    } else {
+
+      this.setState({
+        animationError: true
+      })
+      const setAnimationErrorStateToFalse = ()=>this.setState({
+        animationError: false
+      })
+      setTimeout(setAnimationErrorStateToFalse, 1000)
     }
 
   }
@@ -41,6 +51,7 @@ class MessageInput extends Component{
     },()=>{
       if(this.state.msgInput.length < this.state.msgLimit){
         message = `${this.state.msgLimit-this.state.msgInput.length} characters remaining`
+        this.setState({ animationError: false })
       } else {
         message = 'Message too long'
       }
@@ -50,6 +61,7 @@ class MessageInput extends Component{
   }
 
   render(){
+    console.log(this.state.animationError)
     return(
       <div>
         <Form onSubmit={this.handleSubmit}>
@@ -58,7 +70,9 @@ class MessageInput extends Component{
             placeholder='enter a message'
             floated="right"
             onChange={this.handleChange}
-            value={this.state.msgInput}/>
+            value={this.state.msgInput}
+            className={ this.state.animationError? "animated shake" : null}
+          />
           </Form>
           <p style={{color: 'white', fontStyle: 'italic'}}>{this.state.messageInfo}</p>
       </div>

@@ -50,7 +50,7 @@ class ChatContainer extends Component{
       const systemMsgs = this.props.messages.system
 
     return(
-      <div>
+      <div className="animated fadeIn">
         <LogoutButton/>
         <h1 style={{fontSize: 60, color: 'white', textAlign: "center"}}>globeChatter</h1>
         <Room

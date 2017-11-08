@@ -6,3 +6,9 @@
 body {
   background-color: #9370DB
 }
+
+.halfSecondDelay {
+  -webkit-animation-delay: .5s;
+  -moz-animation-delay: .5s;
+  animation-delay: .5s;
+}
