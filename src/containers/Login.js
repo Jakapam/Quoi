@@ -5,7 +5,7 @@ import { createSocket } from '../actions/transmissions'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import StyledSpan from '../components/StyledSpan'
-import { Container, Grid } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 
 class Login extends Component{
 

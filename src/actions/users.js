@@ -1,10 +1,12 @@
+import { dataApiEndPoint } from '../utils/url_config'
+
 export const signUp = (signUpInfo)=>{
   return(dispatch)=>{
 
     dispatch({ type: 'LOAD_USER' });
 
     const userToSignUp = JSON.stringify(signUpInfo)
-    return fetch('http://192.168.2.40:8080/users/', {
+    return fetch(`${dataApiEndPoint}/users/`, {
       method: 'POST',
       headers: {'content-type':'application/json'},
       body: userToSignUp
@@ -32,7 +34,7 @@ export const login = (loginInfo)=>{
 
     dispatch({ type: 'LOAD_USER' });
     const userToLogin = JSON.stringify(loginInfo)
-    return fetch('http://192.168.2.40:8080/login/', {
+    return fetch(`${dataApiEndPoint}/login/`, {
       method: 'POST',
       headers: {'content-type':'application/json'},
       body: userToLogin
@@ -64,7 +66,7 @@ export const setUser = (token)=>{
 
     const token = localStorage.getItem('token')
 
-    return fetch('http://192.168.2.40:8080/user/', {
+    return fetch(`${dataApiEndPoint}/user/`, {
       headers: {'authorization': token},
     })
       .then(res => res.json())
