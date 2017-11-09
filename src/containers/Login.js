@@ -56,7 +56,18 @@ class Login extends Component{
           <Button type="submit"
             style={{display:'none'}}>submit</Button>
         </Form>
-        <h4 style={{ color: 'white', textAlign: "center"}}>Don't have an account?<Link to="/signup">&nbsp;<StyledSpan text={"Sign Up"}/></Link>!</h4>
+        <p style={{ color: 'white', textAlign: "center", fontWeight: 'bold'}}>
+          Don't have an account?&nbsp;
+          <Link to="/signup">
+            <StyledSpan text={"Sign Up"}/>
+          </Link>
+          !
+        </p>
+        <p className="animated fadeIn" style={{ color: 'white', textAlign: "center", fontWeight: 'bold'}}>
+          <Link to="/">
+            <StyledSpan text={"Home"}/>
+          </Link>
+        </p>
       </Container>
     )
   }

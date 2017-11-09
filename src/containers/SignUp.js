@@ -71,7 +71,18 @@ class SignUp extends Component{
              content={this.state.errorMsg}
            />
         </Form>
-        <h4 style={{ color: 'white', textAlign: "center"}}>Already have an account?<Link to="/login">&nbsp;<StyledSpan text={"Log In"}/></Link>!</h4>
+        <p style={{ color: 'white', textAlign: "center", fontWeight: 'bold'}}>
+          Already have an account?&nbsp;
+          <Link to="/login">
+            <StyledSpan text={"Log In"}/>
+          </Link>
+          !
+        </p>
+        <p className="animated fadeIn" style={{ color: 'white', textAlign: "center", fontWeight: 'bold'}}>
+          <Link to="/">
+            <StyledSpan text={"Home"}/>
+          </Link>
+        </p>
       </Container>
     )
   }
