@@ -10,6 +10,7 @@ class MessageInput extends Component{
     messageInfo: `140 characters remaining`,
     animationError: false,
     msgLimit: 140
+    
   }
 
 

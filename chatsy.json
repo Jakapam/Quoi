@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "chatsy-184715",
+  "private_key_id": "f78cc7a9c26c9db3dc8e459a7670d81470dd0e6e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCpSNnMFnqhCeSl\nm+cOXo0/+ULrTT28fnBTobWukKpHwxKQwF7Yom1LX/BrcxCIsBp0VVL9gwc+tw+3\ndTBi3ReGyrhKTG668KAJVsAyrzCoMgIKI7PaLsy5jpcvf9i5Kvwe20AB/NWPFBvG\njfVmnoSsynQN4xZk11kzI9Fu9BFc0a82nkhkSxRcuUH6Gb7UXe/c+Mx8Enunktdn\n74r7B9JiUrSn+Ko/G7haOfjqHS4WI8iK+F3qp7CbtXNbG8GB1ysYu+UgTtiCdHXa\nR6+E+XxNW4fVR5juZHFvmhMOLcIxUOPpjCzsqfHVtPVP+1bmJEqCj29HNe/i77QA\nRNqHriP1AgMBAAECggEACrfSsMN8Y8I4ZTl+VjOR8xeS4n3TR27xKVDKXwR7zR71\nuvWv5TylE0OkxjjUnPYbBq75GfuRmg/r59Kv2JXLZ1ZiERo1XJKsBbG/aelO3428\nmuwkKmlFWKF4wwiJYT5U4WNCWNER3tHU6Sv6k9LviL0pi4OLdG3W3cNwmPszaji/\ntPUqysxs4rDPz/y8f5wpc9Y8bVbIckdCJtuU2gXFsy1b4GHrMjPvBr3DJpKbczuP\nciVTnVIAQSUvm6FpEdzRFu3yd0XdVvSCHq7jdq418MjUk864KiPGUzjf35U7XkcQ\nsHIxTYjeNchOLy3ta8tA6/GLWkHiyoXFfd0V1HBZ1QKBgQDQc46Gzi7dVU/hDoxd\n2463bdvs+osxztITE++djyT6zeDrT2qP1TCRh971JUIUvnMOpioReSbeZED8MNU1\ncpQPZ9d4NB6+TBlHa7nzysmOH2AZ7dAFfYiQxb8l36rLpRVeFw6Oj9pCueRXPyOy\nGEJiZmrNZSF9Wh0kFMCXghvgfwKBgQDP5ilsuE0F/G+nIT40pAYG6st3xb0TXZob\nRltUN+/XCkFA3csYyjFcCSeBaPgLkdHAzzn1whB/5KtQ2eKOkoIXDgaa6/IF/+aP\nQe9QgIvq1gSsdhOq7lCKQ9wkZVDFPwZE4whNIE1MwBQjpN44cmIXPt+puw+oJcEA\nso+Fi/VBiwKBgAo4MBuhziBhx1nESdNsKTIK+8ZBfkOB3UC8MHosA2ccYtOGgDXv\nAMORwreIDRZRQ/jK4rMamnI6vgjfKATHykR7FdA51ewEdRTQTjyKi5khJqf+xb0P\nK3vVhgqITapQPJzxSnBo0w2EaZJxcQGROOf0F3ZcZ+jqWxViwxJqeY1nAoGAajDT\nKfA9j3gwg7qsLnE1juTxRt1exXyDEblvPuZPgJSBXiOr8J6edbdLUYOPZ0F1VTnE\nDi6xBNKFWwff/BkDj8kfQJSSC9R5LOVt2r2+OhZVTs4FH8MYqncdBA4oIogdqKQa\ngmKkeTaHUumMhGKQjfUUg3rD9YxLOBL80ib6AB8CgYBCVYZFZJgF2Mizg1p6nurd\nC5YZ6HleZtC4wTS/GL1LuComF8Cwai2tbmZu2O70WPuZgSbPvUgTFAaD7bnaLWUt\nAR6b7A+hMzwFfEo8S9XFu6iUWXzObGhB0iEdabCKUMcqmVcQ6BoMbgLREXe63YfC\nGOS5pg61tgn8+GhBjYRs+w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "chat-translator@chatsy-184715.iam.gserviceaccount.com",
+  "client_id": "113116833875272236633",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chat-translator%40chatsy-184715.iam.gserviceaccount.com"
+}
