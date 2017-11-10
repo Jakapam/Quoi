@@ -1,3 +1,5 @@
+import { dataApiEndPoint } from '../utils/url_config'
+
 export const signUp = (signUpInfo)=>{
   return(dispatch)=>{
 

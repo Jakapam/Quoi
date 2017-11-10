@@ -4,6 +4,7 @@ import { fetchLanguages } from './actions/languages'
 import { setUser } from './actions/users'
 import ChatContainer from './containers/ChatContainer'
 import { Route, withRouter } from 'react-router-dom'
+import SpeechTranslator from './containers/SpeechTranslator'
 import SignUp from './containers/SignUp'
 import Login from './containers/Login'
 import Home from './components/Home'
@@ -26,6 +27,7 @@ class App extends Component {
         <Route path='/chat' component={userIsAuthenticated(ChatContainer)} />
         <Route path='/login' component={userIsNotAuthenticated(Login)} />
         <Route path='/signup' component={userIsNotAuthenticated(SignUp)} />
+        <Route path='/interpreter' component={SpeechTranslator}/>
       </div>
     );
   }

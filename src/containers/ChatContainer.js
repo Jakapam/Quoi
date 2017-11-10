@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Room from '../components/Room'
-import { receiveMsg, systemMsg } from '../actions/transmissions'
+import { receiveMsg, systemMsg, createSocket } from '../actions/transmissions'
 import { setLanguage } from '../actions/languages'
 import { connect } from 'react-redux';
 import LogoutButton from './LogoutButton'
@@ -9,6 +9,12 @@ class ChatContainer extends Component{
 
   state={
     atBottomNewMessages: false
+  }
+
+  componentWillMount(){
+    if (!this.props.socket){
+      this.props.createSocket()
+    }
   }
 
   componentDidMount(){
@@ -71,4 +77,4 @@ const mapStateToProps = (state)=>{
   }
 }
 
-export default connect(mapStateToProps, { receiveMsg, setLanguage, systemMsg })(ChatContainer)
+export default connect(mapStateToProps, { receiveMsg, setLanguage, systemMsg, createSocket })(ChatContainer)
