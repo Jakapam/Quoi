@@ -1,5 +1,3 @@
-import { dataApiEndPoint } from '../utils/url_config'
-
 export const signUp = (signUpInfo)=>{
   return(dispatch)=>{
 
@@ -34,7 +32,7 @@ export const login = (loginInfo)=>{
 
     dispatch({ type: 'LOAD_USER' });
     const userToLogin = JSON.stringify(loginInfo)
-    return fetch('/login/', {
+    return fetch('/login', {
       method: 'POST',
       headers: {'content-type':'application/json'},
       body: userToLogin

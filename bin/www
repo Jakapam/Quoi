@@ -4,9 +4,21 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('chatsy:server');
-var http = require('http');
+const app = require('../app').app;
+const socket = require('../app').socket;
+const debug = require('debug')('chatsy:server');
+const https = require('https');
+const fs= require('fs')
+const path = require('path')
+
+console.log
+
+const httpsOptions = {
+  key: fs.readFileSync(path.join(__dirname, '../key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, '../cert.pem'))
+};
+
+const sockAppServer = https.createServer(httpsOptions, socket)
 
 /**
  * Get port from environment and store in Express.
@@ -19,7 +31,12 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = https.createServer(httpsOptions, app)
+const socketServer = https.createServer(httpsOptions, socket)
+
+const io = require('socket.io')(sockAppServer);
+
+require('../socket')(io);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,6 +45,7 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+socketServer.listen(3001)
 
 /**
  * Normalize a port into a number, string, or false.

@@ -20,7 +20,7 @@ const Home = (props)=>{
       <h4 className="animated fadeIn halfSecondDelay" style={{ color: 'white', textAlign: "center"}}>Please<Link to="/login">&nbsp;<StyledSpan text={"Log In"}/></Link>&nbsp;to your account!</h4>
       <h4 className="animated fadeIn halfSecondDelay" style={{ color: 'white', textAlign: "center"}}>Don't have an account?<Link to="/signup">&nbsp;<StyledSpan text={"Sign Up"}/></Link>!</h4>
       <h4 className="animated fadeIn" style={{ color: 'white', textAlign: "center", fontWeight: 'bold'}}>
-        <Link to="/interpreter">
+        <Link className="animated fadeIn halfSecondDelay" to='/interpreter'>
           <StyledSpan text={"Speech"}/>
         </Link>
       </h4>

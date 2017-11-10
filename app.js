@@ -1,46 +1,51 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express')
+const sockApp = require('express')();
+const dataApp = require('express')();
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const config = require('./config.js');
+const cors = require('cors')
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+dataApp.use((req,res,next)=>{
+  // console.log(req)
+  // console.log(res)
+  next();
+})
 
-var app = express();
+dataApp.use(logger('dev'));
+sockApp.use(logger('dev'))
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+dataApp.use(bodyParser.json());
+dataApp.use(bodyParser.urlencoded({ extended: true }));
+dataApp.use('/',express.static('build'));
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', index);
-app.use('/users', users);
+require('./routes')(dataApp);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+dataApp.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+dataApp.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.dataApp.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
 
-module.exports = app;
+
+module.exports = {
+  app: dataApp,
+  socket: sockApp
+};
+
+
+// dataApp.listen(8080, ()=>{
+//   console.log('listening for data requests port:8080');
+// });

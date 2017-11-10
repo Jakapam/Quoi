@@ -7,8 +7,26 @@ body {
   background-color: #9370DB
 }
 
+.quarterSecondDelay {
+  -webkit-animation-delay: .25s;
+  -moz-animation-delay: .25s;
+  animation-delay: .25s;
+}
+
 .halfSecondDelay {
   -webkit-animation-delay: .5s;
   -moz-animation-delay: .5s;
   animation-delay: .5s;
+}
+
+.threeQuarterSecondDelay {
+  -webkit-animation-delay: .75s;
+  -moz-animation-delay: .75s;
+  animation-delay: .75s;
+}
+
+.oneSecondDelay {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  animation-delay: 1s;
 }

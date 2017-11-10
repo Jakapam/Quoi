@@ -10,10 +10,11 @@ class SpeechTranslator extends Component{
 
   state={
     recognition: null,
-    currentText: "",
-    translatedText: "",
+    currentText: " ",
+    translatedText: " ",
     outputLang: 'en',
-    inputLang: 'en'
+    inputLang: 'en',
+    listening: false
   }
 
   componentDidMount(){
@@ -41,7 +42,7 @@ class SpeechTranslator extends Component{
          outputLang: this.state.outputLang
         }
 
-       fetch('https://192.168.2.40:8080/interpret', {method: 'POST', headers: {'content-type':'application/json'},
+       fetch('/interpret', {method: 'POST', headers: {'content-type':'application/json'},
        body: JSON.stringify(fetchMessage)
      })
      .then(res=>res.json())
@@ -62,18 +63,25 @@ class SpeechTranslator extends Component{
 
  handleTouchStart = (event)=>{
    event.preventDefault();
-   this.state.recognition.start();
+
    this.setState({
-     lastInteraction: "Touch Start"
+     listening: !this.state.listening
    })
+
+   if(!this.state.listening){
+     this.state.recognition.start();
+   } else {
+     this.state.recognition.stop();
+   }
+
  }
 
  handleTouchEnd = (event)=>{
    event.preventDefault();
-   this.state.recognition.stop();
-   this.setState({
-     lastInteraction: "Touch End"
-   })
+  //  this.state.recognition.stop();
+  //  this.setState({
+  //    lastInteraction: "Touch End"
+  //  })
  }
 
  onDown = (event)=>{
@@ -116,22 +124,30 @@ handleInputChange = (event, {value})=>{
  }
 
   render(){
-
+  debugger;
     console.log(this.state.outputLang)
 
   const languageOptions = this.props.languages.map((language, index)=>{
     return {value:language.code, key:language.name, text: language.name}
   })
 
+  const listeningStyle= !this.state.listening ? {
+    visibility: 'hidden'
+  } : null;
+
 
     return(
-      <div>
+      <div className="animated fadeIn">
         <div style={{ color: 'white', textAlign: "center", fontWeight: 'bold', position: 'fixed',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%,-50%)'}}>
+          <h2 style={listeningStyle}>Listening
+            <span className="animated fadeIn quarterSecondDelay infinite">.</span>
+            <span className="animated fadeIn halfSecondDelay infinite">.</span>
+            <span className="animated fadeIn threeQuarterSecondDelay infinite">.</span></h2>
           <Image
-            className="animated rollIn"
+            className={this.state.listening ? 'animated pulse infinite' : null}
             src={logo}
             size='large'
             onMouseDown={this.onDown}
@@ -140,8 +156,8 @@ handleInputChange = (event, {value})=>{
             onTouchEnd= {this.handleTouchEnd}
             onContextMenu= {this.handleContextMenu}
           />
-          <p style={{fontWeight: 'normal'}}>What I think you said:</p> <p style={{fontSize: 20}}>{this.state.currentText}</p>
-          <p style={{fontWeight: 'normal'}}>Translation:</p> <p style={{fontSize: 20}}>{this.state.translatedText}</p>
+          <p style={{fontWeight: 'normal'}}>What I think you said:</p> <p style={{fontSize: 20}}>&nbsp;{this.state.currentText}&nbsp;</p>
+          <p style={{fontWeight: 'normal'}}>Translation:</p> <p style={{fontSize: 20}}>&nbsp;{this.state.translatedText}&nbsp;</p>
         </div>
         <Dropdown
           onChange={this.handleInputChange}

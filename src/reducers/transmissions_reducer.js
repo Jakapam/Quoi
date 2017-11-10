@@ -1,5 +1,4 @@
 import openSocket from 'socket.io-client'
-import { webSocketEndPoint } from '../utils/url_config'
 
 export default (state = {
   loading: false,
@@ -13,7 +12,7 @@ export default (state = {
 }, action) => {
   switch (action.type) {
     case "CREATE_SOCKET":
-      const socket = openSocket(`${webSocketEndPoint}`)
+      const socket = openSocket(`http://localhost:3001`)
       return {...state, socket: socket}
     case "SEND_MESSAGE":
       return {...state, messages:{...state.messages, outgoing: [...state.messages.outgoing, action.payload]}};
