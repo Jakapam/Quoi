@@ -4,11 +4,13 @@
   "description": "Node server for multi-language chat application",
   "main": "server.js",
   "author": "Justin M",
+  "proxy": "https://localhost:8080/",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start:dev": "GOOGLE_APPLICATION_CREDENTIALS='./chatsy.json' nodemon --inspect server.js",
-    "start": "react-scripts start",
+    "start": "GOOGLE_APPLICATION_CREDENTIALS='./chatsy.json' node server.js",
+    "start-dev": "GOOGLE_APPLICATION_CREDENTIALS='./chatsy.json' nodemon --inspect server.js",
+    "start-react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
