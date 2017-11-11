@@ -12,7 +12,7 @@ export default (state = {
 }, action) => {
   switch (action.type) {
     case "CREATE_SOCKET":
-      const socket = openSocket(`http://localhost:3001`)
+      const socket = openSocket(`https://localhost:3001`)
       return {...state, socket: socket}
     case "SEND_MESSAGE":
       return {...state, messages:{...state.messages, outgoing: [...state.messages.outgoing, action.payload]}};

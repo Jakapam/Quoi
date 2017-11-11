@@ -3,6 +3,8 @@ import Room from '../components/Room'
 import { receiveMsg, systemMsg, createSocket } from '../actions/transmissions'
 import { setLanguage } from '../actions/languages'
 import { connect } from 'react-redux';
+import { Image } from 'semantic-ui-react'
+import title from '../fulltitle.png'
 import LogoutButton from './LogoutButton'
 
 class ChatContainer extends Component{
@@ -47,6 +49,11 @@ class ChatContainer extends Component{
 
   render(){
 
+    const imgStyle={
+      display: 'block',
+      margin: '0 auto'
+    }
+
     if(this.scrollElement && this.scrollElement.scrollTop === this.scrollElement.scrollHeight - this.scrollElement.clientHeight){
       console.log("Bottom")
     }
@@ -56,9 +63,16 @@ class ChatContainer extends Component{
       const systemMsgs = this.props.messages.system
 
     return(
-      <div className="animated fadeIn">
+      <div
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%,-50%)'
+        }}
+        className="animated fadeIn">
         <LogoutButton/>
-        <h1 style={{fontSize: 60, color: 'white', textAlign: "center"}}>globeChatter</h1>
+        <Image src={title} style={imgStyle} size="medium"/>
         <Room
           scrollRef = {el => this.scrollElement = el}
           incoming={incomingMsgs}

@@ -11,14 +11,10 @@ const https = require('https');
 const fs= require('fs')
 const path = require('path')
 
-console.log
-
 const httpsOptions = {
   key: fs.readFileSync(path.join(__dirname, '../key.pem')),
   cert: fs.readFileSync(path.join(__dirname, '../cert.pem'))
 };
-
-const sockAppServer = https.createServer(httpsOptions, socket)
 
 /**
  * Get port from environment and store in Express.
@@ -34,19 +30,24 @@ app.set('port', port);
 const server = https.createServer(httpsOptions, app)
 const socketServer = https.createServer(httpsOptions, socket)
 
-const io = require('socket.io')(sockAppServer);
+const io = require('socket.io')(socketServer);
+io.set('origins', '*:*');
 
-require('../socket')(io);
-
+require('../socket.js')(io);
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port,()=>{
+  console.log("listening: ", port)
+});
 server.on('error', onError);
 server.on('listening', onListening);
-socketServer.listen(3001)
 
+
+socketServer.listen(3001, ()=>{
+  console.log("sockets listening: 3001")
+})
 /**
  * Normalize a port into a number, string, or false.
  */

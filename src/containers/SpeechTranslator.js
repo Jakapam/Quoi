@@ -61,8 +61,10 @@ class SpeechTranslator extends Component{
    })
  }
 
- handleTouchStart = (event)=>{
+ handleClick = (event)=>{
    event.preventDefault();
+
+   console.log("Clicked!")
 
    this.setState({
      listening: !this.state.listening
@@ -74,33 +76,6 @@ class SpeechTranslator extends Component{
      this.state.recognition.stop();
    }
 
- }
-
- handleTouchEnd = (event)=>{
-   event.preventDefault();
-  //  this.state.recognition.stop();
-  //  this.setState({
-  //    lastInteraction: "Touch End"
-  //  })
- }
-
- onDown = (event)=>{
-   event.preventDefault();
-   this.state.recognition.start();
-   console.log('Dictating.');
-   this.setState({
-     lastInteraction: "Mouse Down"
-   })
- }
-
- onUp = (event)=>{
-   event.preventDefault();
-   this.state.recognition.stop();
-   console.log('End Dictation')
-
-   this.setState({
-     lastInteraction: "Mouse Up"
-   })
  }
 
  handleOuputChange = (event, {value})=>{
@@ -124,17 +99,12 @@ handleInputChange = (event, {value})=>{
  }
 
   render(){
-  debugger;
-    console.log(this.state.outputLang)
+
+  console.log(this.state.outputLang)
 
   const languageOptions = this.props.languages.map((language, index)=>{
     return {value:language.code, key:language.name, text: language.name}
   })
-
-  const listeningStyle= !this.state.listening ? {
-    visibility: 'hidden'
-  } : null;
-
 
     return(
       <div className="animated fadeIn">
@@ -142,35 +112,52 @@ handleInputChange = (event, {value})=>{
           top: '50%',
           left: '50%',
           transform: 'translate(-50%,-50%)'}}>
-          <h2 style={listeningStyle}>Listening
-            <span className="animated fadeIn quarterSecondDelay infinite">.</span>
-            <span className="animated fadeIn halfSecondDelay infinite">.</span>
-            <span className="animated fadeIn threeQuarterSecondDelay infinite">.</span></h2>
+          <h2>
+            { !this.state.listening ? <span>Tap to start!</span> : <span>
+              Listening
+              <span className="animated fadeIn quarterSecondDelay infinite">.</span>
+              <span className="animated fadeIn halfSecondDelay infinite">.</span>
+              <span className="animated fadeIn threeQuarterSecondDelay infinite">.</span>
+            </span>}
+          </h2>
           <Image
             className={this.state.listening ? 'animated pulse infinite' : null}
             src={logo}
             size='large'
-            onMouseDown={this.onDown}
-            onMouseUp={this.onUp}
-            onTouchStart= {this.handleTouchStart}
-            onTouchEnd= {this.handleTouchEnd}
+            onClick= { this.handleClick }
             onContextMenu= {this.handleContextMenu}
           />
           <p style={{fontWeight: 'normal'}}>What I think you said:</p> <p style={{fontSize: 20}}>&nbsp;{this.state.currentText}&nbsp;</p>
           <p style={{fontWeight: 'normal'}}>Translation:</p> <p style={{fontSize: 20}}>&nbsp;{this.state.translatedText}&nbsp;</p>
         </div>
         <Dropdown
+          style={{
+              position: 'fixed',
+              left: '1%',
+              top: '2%',
+              fontSize: '1.5vh'
+          }}
           onChange={this.handleInputChange}
-          className='icon'
-          labeled
+          className='icon right dropdown'
+          value={this.state.inputLang}
+          selection
+          scrolling
           placeholder="Select input language"
           icon='user'
           options={languageOptions}
         />
         <Dropdown
           onChange={this.handleOuputChange}
-          className='icon'
-          labeled
+          style={{
+              position: 'fixed',
+              right: '1%',
+              top: '2%',
+              fontSize: '1.5vh'
+          }}
+          className='icon left dropdown'
+          value={this.state.outputLang}
+          selection
+          scrolling
           placeholder="Select output language"
           icon='world'
           options={languageOptions}

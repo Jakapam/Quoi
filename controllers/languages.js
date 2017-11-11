@@ -8,7 +8,6 @@ const translateFn = require('../translate')
 module.exports = {
 
   list(req, res){
-    console.log(res)
     return translate
     .getLanguages()
     .then(results => {
@@ -23,7 +22,6 @@ module.exports = {
   },
 
   interpret(req, res){
-    console.log(req.body)
     return translateFn(translate,req.body.speechToInterpret,req.body.outputLang).then(results => {
       const translation = results[0];
       const translatedSpeech = {

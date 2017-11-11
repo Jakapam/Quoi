@@ -46,7 +46,14 @@ class SignUp extends Component{
 
   render(){
     return(
-      <Container className="animated fadeIn" >
+      <Container
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%,-50%)'
+        }}
+        className="animated fadeIn" >
         <h2 style={{fontSize: 40, color: 'white', textAlign: "center"}}>Sign up</h2>
         <Form error={!!this.state.errorMsg} onSubmit={this.handleSubmit}>
           <Form.Input type="text"

@@ -26,7 +26,7 @@ const MsgList= (props)=>{
   const msgList = [...incoming, ...outgoing, ...system].sort((msgA, msgB)=> {return msgA.props.msg.timestamp - msgB.props.msg.timestamp})
 
   return(
-    <div ref={props.scrollRef} onClick={ goToBottom } style={{paddingTop: 10, height: '70vh', overflow: 'auto', backgroundColor: 'white', borderRadius: '2%', marginBottom: 25}}>
+    <div ref={props.scrollRef} onClick={ goToBottom } style={{paddingTop: 10, height: '60vh', overflow: 'auto', backgroundColor: 'white', borderRadius: '2%', marginBottom: 25}}>
       <List>
         {msgList}
       </List>

@@ -40,7 +40,14 @@ class Login extends Component{
 
   render(){
     return(
-      <Container className="animated fadeIn" >
+      <Container
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%,-50%)'
+        }} 
+        className="animated fadeIn" >
         <h2 style={{fontSize: 40, color: 'white', textAlign: "center"}}>Login</h2>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input type="text"

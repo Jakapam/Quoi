@@ -6,20 +6,14 @@ const bodyParser = require('body-parser');
 const config = require('./config.js');
 const cors = require('cors')
 
-dataApp.use((req,res,next)=>{
-  // console.log(req)
-  // console.log(res)
-  next();
-})
-
-dataApp.use(logger('dev'));
-sockApp.use(logger('dev'))
-
+// dataApp.use(logger('dev'));
 dataApp.use(bodyParser.json());
 dataApp.use(bodyParser.urlencoded({ extended: true }));
 dataApp.use('/',express.static('build'));
 
 require('./routes')(dataApp);
+
+dataApp.use('/*',express.static('build'))
 
 // catch 404 and forward to error handler
 dataApp.use(function(req, res, next) {
