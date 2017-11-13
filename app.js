@@ -6,18 +6,19 @@ const config = require("./config.js");
 const cors = require("cors");
 
 // app.use(logger('dev'));
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", express.static("build"));
 
-app.get("/ipaddress", (req, res, next) => {
-  res.send({
-    address: req.connection.localAddress.match(
-      /[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/
-    )[0],
-    port: req.connection.localPort
-  });
-});
+// app.get("/ipaddress", (req, res, next) => {
+//   res.send({
+//     address: req.connection.localAddress.match(
+//       /[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/
+//     )[0],
+//     port: req.connection.localPort
+//   });
+// });
 
 require("./routes")(app);
 

@@ -11,7 +11,7 @@ class RoomContainer extends Component {
 
   componentWillMount() {
     this.props.socket.emit("join-room", {
-      user: this.props.user,
+      username: this.props.username,
       room: this.state.roomName
     });
   }
@@ -20,8 +20,11 @@ class RoomContainer extends Component {
     this.props.socket.on("chatMsg-en", msg => {
       this.props.receiveMsg(msg);
     });
-    this.props.socket.on("system", msg => {
+    this.props.socket.on("system-en", msg => {
       this.props.systemMsg(msg);
+    });
+    this.props.socket.on("userlist", userlist => {
+      console.log(userlist);
     });
   }
 
@@ -67,7 +70,7 @@ class RoomContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.user.username,
+    username: state.user.user.username,
     messages: state.transmissions.messages,
     socket: state.transmissions.socket
   };

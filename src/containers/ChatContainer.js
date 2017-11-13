@@ -30,7 +30,7 @@ class ChatContainer extends Component {
         }}
         className="animated fadeIn">
         <LogoutButton />
-        <Image src={title} style={imgStyle} size="medium" />
+        <Image src={title} style={imgStyle} size="small" />
         <RoomContainer />
       </div>
     );

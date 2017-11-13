@@ -9,7 +9,8 @@
   "private": false,
   "scripts": {
     "start": "GOOGLE_APPLICATION_CREDENTIALS='./chatsy.json' node bin/www",
-    "start-dev": "GOOGLE_APPLICATION_CREDENTIALS='./chatsy.json' nodemon --inspect bin/www",
+    "start-dev":
+      "GOOGLE_APPLICATION_CREDENTIALS='./chatsy.json' nodemon --inspect bin/www",
     "start-react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -29,8 +30,6 @@
     "mongoose": "^4.13.2",
     "morgan": "^1.9.0",
     "path": "^0.12.7",
-    "pg": "^7.3.0",
-    "pg-hstore": "^2.3.2",
     "radium": "^0.19.6",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -43,7 +42,6 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.75.1",
-    "sequelize": "^4.22.1",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {

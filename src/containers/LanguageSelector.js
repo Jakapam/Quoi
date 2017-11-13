@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { setLanguage } from "../actions/languages";
 import { Dropdown } from "semantic-ui-react";
-import { receiveMsg } from "../actions/transmissions";
+import { receiveMsg, systemMsg } from "../actions/transmissions";
 import { connect } from "react-redux";
 
 class LanguageSelector extends Component {
@@ -11,6 +11,10 @@ class LanguageSelector extends Component {
     });
 
     this.props.socket.off(`chatMsg-${this.props.currentLanguage}`);
+    this.props.socket.off(`system-${this.props.currentLanguage}`);
+    this.props.socket.on(`system-${value}`, msg => {
+      this.props.systemMsg(msg);
+    });
     this.props.socket.on(`chatMsg-${value}`, msg => {
       this.props.receiveMsg(msg);
     });
@@ -52,6 +56,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { setLanguage, receiveMsg })(
+export default connect(mapStateToProps, { setLanguage, receiveMsg, systemMsg })(
   LanguageSelector
 );
