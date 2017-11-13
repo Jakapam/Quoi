@@ -1,45 +1,44 @@
-const express = require('express')
-const sockApp = require('express')();
-const dataApp = require('express')();
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const config = require('./config.js');
-const cors = require('cors')
+const express = require("express");
+const app = require("express")();
+const logger = require("morgan");
+const bodyParser = require("body-parser");
+const config = require("./config.js");
+const cors = require("cors");
 
-// dataApp.use(logger('dev'));
-dataApp.use(bodyParser.json());
-dataApp.use(bodyParser.urlencoded({ extended: true }));
-dataApp.use('/',express.static('build'));
+// app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/", express.static("build"));
 
-require('./routes')(dataApp);
+app.get("/ipaddress", (req, res, next) => {
+  res.send({
+    address: req.connection.localAddress.match(
+      /[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/
+    )[0],
+    port: req.connection.localPort
+  });
+});
 
-dataApp.use('/*',express.static('build'))
+require("./routes")(app);
 
-// catch 404 and forward to error handler
-dataApp.use(function(req, res, next) {
-  var err = new Error('Not Found');
+app.use("/*", express.static("build"));
+
+// catch 404 and forward to error handle
+app.use(function(req, res, next) {
+  var err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
 
 // error handler
-dataApp.use(function(err, req, res, next) {
+app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.dataApp.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render("error");
 });
 
-
-module.exports = {
-  app: dataApp,
-  socket: sockApp
-};
-
-
-// dataApp.listen(8080, ()=>{
-//   console.log('listening for data requests port:8080');
-// });
+module.exports = app;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Image, Dropdown
- } from 'semantic-ui-react'
+import { Image, Dropdown } from 'semantic-ui-react'
 import logo from '../chatsylogo.png'
 import { connect } from 'react-redux';
 
