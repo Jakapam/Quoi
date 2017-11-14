@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 class RoomContainer extends Component {
   state = {
     atBottomNewMessages: false,
-    roomName: "Room1"
+    roomName: "Room1",
+    users: []
   };
 
   componentWillMount() {
@@ -24,7 +25,7 @@ class RoomContainer extends Component {
       this.props.systemMsg(msg);
     });
     this.props.socket.on("userlist", userlist => {
-      console.log(userlist);
+      this.setState({ users: userlist });
     });
   }
 
@@ -62,6 +63,7 @@ class RoomContainer extends Component {
           incoming={incomingMsgs}
           outgoing={outgoingMsgs}
           system={systemMsgs}
+          users={this.state.users}
         />
       </div>
     );
