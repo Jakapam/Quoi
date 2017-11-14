@@ -6,7 +6,7 @@ const translate = new Translate({
 const translateFn = require("./translate");
 const languagesToTransmit = ["en"];
 
-var usernames = [];
+var users = [];
 
 module.exports = io => {
   io.on("connection", client => {
@@ -15,7 +15,7 @@ module.exports = io => {
     client.on("join-room", clientRoom => {
       console.log(clientRoom);
       client.username = clientRoom.username;
-      usernames.push(client.username);
+      users.push(client.username);
 
       let joinMessage = `${client.username} has joined the room`;
       let timeNow = Date.now();
@@ -33,7 +33,7 @@ module.exports = io => {
         });
       });
 
-      io.emit("userlist", usernames);
+      io.emit("userlist", users);
     });
 
     client.on("chatMsgServer", msg => {
@@ -87,8 +87,8 @@ module.exports = io => {
           io.emit(`system-${lang}`, translatedMsg);
         });
       });
-      usernames = usernames.filter(username => username !== client.username);
-      io.emit("userlist", usernames);
+      users = users.filter(user => user !== client.username);
+      io.emit("userlist", users);
       console.log("client disconnected");
     });
   });
