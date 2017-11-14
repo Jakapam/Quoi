@@ -22,5 +22,7 @@ yarn-error.log*
 
 /config
 
+#keys
+chatsy.json 
 cert.pem
 key.pem
