@@ -5,6 +5,17 @@ const translate = new Translate({
 });
 const translateFn = require("./translate");
 const languagesToTransmit = ["en"];
+const Room = require("./models/room");
+var room;
+
+Room.findOne({ name: "Room1" }, (err, foundRoom) => {
+  if (err) {
+    room = new Room({ name: "Room1" });
+    room.findOne;
+  } else {
+    room = foundRoom;
+  }
+});
 
 var users = [];
 
@@ -12,10 +23,43 @@ module.exports = io => {
   io.on("connection", client => {
     console.log("client connected");
 
-    client.on("join-room", clientRoom => {
-      console.log(clientRoom);
-      client.username = clientRoom.username;
-      users.push(client.username);
+    client.on("join-room", joinRoomInfo => {
+      console.log(joinRoomInfo);
+
+      client.language = joinRoomInfo.language;
+      client.username = joinRoomInfo.username;
+      client.languageCode = joinRoomInfo.languageCode;
+
+      users.push({
+        username: client.username,
+        language: client.language,
+        languageCode: client.languageCode
+      });
+
+      Room.find({ name: "Room1" }, "messages", (err, messages) => {
+        let incomingMsgs = messages[0].messages.filter(msg => {
+          return msg.sender !== client.username;
+        });
+
+        let bulkMsgsToSend = [];
+
+        incomingMsgs.forEach(msg => {
+          translateFn(translate, msg.content, client.languageCode).then(
+            results => {
+              const translation = results[0];
+              const translatedMsg = {
+                sender: msg.sender,
+                content: `${translation}`,
+                timestamp: msg.timestamp
+              };
+              bulkMsgsToSend.push(translatedMsg);
+              if (bulkMsgsToSend.length === incomingMsgs.length) {
+                client.emit("bulkMsgs", bulkMsgsToSend);
+              }
+            }
+          );
+        });
+      });
 
       let joinMessage = `${client.username} has joined the room`;
       let timeNow = Date.now();
@@ -29,7 +73,7 @@ module.exports = io => {
             content: `${translation}`,
             timestamp: timeNow
           };
-          io.emit(`system-${lang}`, translatedMsg);
+          client.broadcast.emit(`system-${lang}`, translatedMsg);
         });
       });
 
@@ -38,13 +82,13 @@ module.exports = io => {
 
     client.on("chatMsgServer", msg => {
       console.log("msg received: ", msg);
-
+      room.messages.push(msg);
+      room.save();
       languagesToTransmit.forEach(lang => {
         translateFn(translate, msg.content, lang).then(results => {
           const translation = results[0];
           const translatedMsg = Object.assign({}, msg, {
-            content: `${translation}`,
-            timestamp: Date.now()
+            content: `${translation}`
           });
           client.broadcast.emit(`chatMsg-${lang}`, translatedMsg);
         });
@@ -70,7 +114,14 @@ module.exports = io => {
         client.emit(`system-${language.code}`, translatedMsg);
       });
 
-      client.language = language.code;
+      client.language = language.name;
+      client.languageCode = language.code;
+      users.forEach(user => {
+        if (user.username === client.username) {
+          user.language = client.language;
+        }
+      });
+      io.emit("userlist", users);
     });
 
     client.on("disconnect", () => {
@@ -87,7 +138,7 @@ module.exports = io => {
           io.emit(`system-${lang}`, translatedMsg);
         });
       });
-      users = users.filter(user => user !== client.username);
+      users = users.filter(user => user.username !== client.username);
       io.emit("userlist", users);
       console.log("client disconnected");
     });

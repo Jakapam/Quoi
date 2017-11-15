@@ -17,6 +17,22 @@ export default (
     case "CREATE_SOCKET":
       const socket = openSocket(`https://localhost:3000`);
       return { ...state, socket: socket };
+    case "CONSUME_BULK_MSGS":
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          incoming: [...state.messages.incoming, ...action.payload]
+        }
+      };
+    case "RETRIEVE_MSGS":
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          outgoing: [...state.messages.incoming, ...action.payload]
+        }
+      };
     case "SEND_MESSAGE":
       return {
         ...state,

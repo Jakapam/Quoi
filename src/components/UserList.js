@@ -1,10 +1,16 @@
 import React from "react";
-import UsernameItem from "./UsernameItem";
+import UserListItem from "./UserListItem";
 import { List, Icon } from "semantic-ui-react";
 
 const UserList = props => {
-  const userList = props.users.map((username, index) => {
-    return <UsernameItem key={username} username={username} />;
+  const userList = props.users.map((user, index) => {
+    return (
+      <UserListItem
+        key={index}
+        username={user.username}
+        language={user.language}
+      />
+    );
   });
 
   return (
@@ -14,8 +20,7 @@ const UserList = props => {
         height: "60vh",
         overflow: "auto",
         backgroundColor: "white",
-        borderRadius: "5%",
-        marginBottom: 25
+        borderRadius: "5%"
       }}>
       <Icon name="users" />
       <List>{userList}</List>

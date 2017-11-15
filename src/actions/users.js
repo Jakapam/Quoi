@@ -1,3 +1,12 @@
+const parseUserData = data => {
+  return {
+    username: data.username,
+    id: data.id,
+    language: data.language,
+    language_code: data.language_code
+  };
+};
+
 export const signUp = signUpInfo => {
   return dispatch => {
     dispatch({ type: "LOAD_USER" });
@@ -14,10 +23,7 @@ export const signUp = signUpInfo => {
           console.log("SignUp error: ", data.error);
         } else {
           localStorage.setItem("token", data.jwt);
-          const userData = {
-            username: data.username,
-            id: data.id
-          };
+          const userData = parseUserData(data);
           dispatch({ type: "LOGIN_USER", payload: userData });
         }
       })
@@ -40,10 +46,7 @@ export const login = loginInfo => {
           console.log("Login error: ", data.error);
         } else {
           localStorage.setItem("token", data.jwt);
-          const userData = {
-            username: data.username,
-            id: data.id
-          };
+          const userData = parseUserData(data);
           dispatch({ type: "LOGIN_USER", payload: userData });
         }
       })
@@ -56,7 +59,6 @@ export const login = loginInfo => {
 export const setUser = token => {
   return dispatch => {
     dispatch({ type: "LOAD_USER" });
-    dispatch({ type: "CREATE_SOCKET" });
 
     const token = localStorage.getItem("token");
 
@@ -68,10 +70,8 @@ export const setUser = token => {
         if (data.error) {
           console.log("Login error: ", data.error);
         } else {
-          const userData = {
-            username: data.username,
-            id: data.id
-          };
+          const userData = parseUserData(data);
+          dispatch({ type: "CREATE_SOCKET" });
           dispatch({ type: "LOGIN_USER", payload: userData });
         }
       })
