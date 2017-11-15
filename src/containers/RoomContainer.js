@@ -3,7 +3,8 @@ import Room from "../components/Room";
 import {
   receiveMsg,
   systemMsg,
-  handleIncomingBulkMsgs
+  handleIncomingBulkMsgs,
+  handleOutgoingBulkMsgs
 } from "../actions/transmissions";
 import { connect } from "react-redux";
 
@@ -21,18 +22,24 @@ class RoomContainer extends Component {
       language: this.props.language,
       languageCode: this.props.languageCode
     });
-    this.props.socket.on("bulkMsgs", bulkMsgs => {
+
+    this.props.socket.on("bulkIncomingMsgs", bulkMsgs => {
       this.props.handleIncomingBulkMsgs(bulkMsgs);
     });
-  }
+    this.props.socket.on("bulkOutgoingMsgs", bulkMsgs => {
+      this.props.handleOutgoingBulkMsgs(bulkMsgs);
+    });
 
-  componentDidMount() {
+    console.log(this.props);
+    console.log(this.props.socket);
+
     this.props.socket.on(`chatMsg-${this.props.languageCode}`, msg => {
       this.props.receiveMsg(msg);
     });
     this.props.socket.on(`system-${this.props.languageCode}`, msg => {
       this.props.systemMsg(msg);
     });
+
     this.props.socket.on("userlist", userlist => {
       this.setState({ users: userlist });
     });
@@ -92,5 +99,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   receiveMsg,
   systemMsg,
-  handleIncomingBulkMsgs
+  handleIncomingBulkMsgs,
+  handleOutgoingBulkMsgs
 })(RoomContainer);

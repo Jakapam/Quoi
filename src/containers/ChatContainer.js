@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import RoomContainer from "./RoomContainer";
-import { createSocket, fetchOwnMessages } from "../actions/transmissions";
+import { createSocket } from "../actions/transmissions";
 import { setLanguage } from "../actions/languages";
 import { connect } from "react-redux";
 import { Image } from "semantic-ui-react";
@@ -15,7 +15,6 @@ class ChatContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchOwnMessages(this.props.username);
     this.props.setLanguage(this.props.languageCode);
   }
 
@@ -53,6 +52,5 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   createSocket,
-  fetchOwnMessages,
   setLanguage
 })(ChatContainer);

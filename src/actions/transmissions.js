@@ -4,22 +4,16 @@ export const createSocket = () => {
   };
 };
 
-export const fetchOwnMessages = username => {
-  return dispatch => {
-    fetch("/Room1/messages")
-      .then(res => res.json())
-      .then(data => {
-        const fetchedMessages = data.messages.filter(msg => {
-          return msg.sender === username;
-        });
-        dispatch({ type: "RETRIEVE_MSGS", payload: fetchedMessages });
-      });
+export const handleOutgoingBulkMsgs = bulkMsgs => {
+  return {
+    type: "CONSUME_OUTGOING_BULK_MSGS",
+    payload: bulkMsgs
   };
 };
 
 export const handleIncomingBulkMsgs = bulkMsgs => {
   return {
-    type: "CONSUME_BULK_MSGS",
+    type: "CONSUME_INCOMING_BULK_MSGS",
     payload: bulkMsgs
   };
 };

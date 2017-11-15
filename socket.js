@@ -12,7 +12,6 @@ var room;
 Room.findOne({ name: "Room1" }, (err, foundRoom) => {
   if (err) {
     room = new Room({ name: "Room1" });
-    room.findOne;
   } else {
     room = foundRoom;
   }
@@ -31,20 +30,31 @@ module.exports = io => {
       client.username = joinRoomInfo.username;
       client.languageCode = joinRoomInfo.languageCode;
 
+      if (!languagesToTransmit.includes(client.languageCode)) {
+        languagesToTransmit.push(client.languageCode);
+      }
+
       users.push({
         username: client.username,
         language: client.language,
         languageCode: client.languageCode
       });
 
+      let incomingMsgsToTranslate = [];
+      let bulkOutgoingMsgsToSend = [];
+
       Room.find({ name: "Room1" }, "messages", (err, messages) => {
-        let incomingMsgs = messages[0].messages.filter(msg => {
-          return msg.sender !== client.username;
+        messages[0].messages.forEach(msg => {
+          if (msg.sender !== client.username) {
+            incomingMsgsToTranslate.push(msg);
+          } else {
+            bulkOutgoingMsgsToSend.push(msg);
+          }
         });
 
-        let bulkMsgsToSend = [];
+        let bulkIncomingMsgsToSend = [];
 
-        incomingMsgs.forEach(msg => {
+        incomingMsgsToTranslate.forEach(msg => {
           translateFn(translate, msg.content, client.languageCode).then(
             results => {
               const translation = results[0];
@@ -53,9 +63,12 @@ module.exports = io => {
                 content: `${translation}`,
                 timestamp: msg.timestamp
               };
-              bulkMsgsToSend.push(translatedMsg);
-              if (bulkMsgsToSend.length === incomingMsgs.length) {
-                client.emit("bulkMsgs", bulkMsgsToSend);
+              bulkIncomingMsgsToSend.push(translatedMsg);
+              if (
+                bulkIncomingMsgsToSend.length === incomingMsgsToTranslate.length
+              ) {
+                client.emit("bulkIncomingMsgs", bulkIncomingMsgsToSend);
+                client.emit("bulkOutgoingMsgs", bulkOutgoingMsgsToSend);
               }
             }
           );
