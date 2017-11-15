@@ -87,11 +87,9 @@ class SignUp extends Component {
             />
             <Form.Dropdown
               onChange={this.handleDropdownChange}
-              icon="world"
-              className="icon right dropdown"
               selection
               search
-              placeholder="Select language!"
+              placeholder="select language!"
               options={languageOptions}
             />
           </Form.Group>
