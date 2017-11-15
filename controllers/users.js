@@ -28,15 +28,22 @@ module.exports = {
       },
       (err, user) => {
         console.log(user);
-        const token = jwt.sign(
-          {
-            id: user.id
-          },
-          config.JWT_SECRET,
-          { expiresIn: "24h" }
-        );
-        const userInfo = parseUserInfo(user, token);
-        res.status(201).send(userInfo);
+        if (err) {
+          console.log(err);
+          res
+            .status(400)
+            .send({ error: "Sorry, there was an issue with your request" });
+        } else {
+          const token = jwt.sign(
+            {
+              id: user.id
+            },
+            config.JWT_SECRET,
+            { expiresIn: "24h" }
+          );
+          const userInfo = parseUserInfo(user, token);
+          res.status(201).send(userInfo);
+        }
       }
     );
   },

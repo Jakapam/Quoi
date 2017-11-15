@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import StyledSpan from "../components/StyledSpan";
 import { createSocket } from "../actions/transmissions";
-import { Container, Dropdown } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 
 class SignUp extends Component {
   state = {
@@ -77,41 +77,44 @@ class SignUp extends Component {
           Sign up
         </h2>
         <Form error={!!this.state.errorMsg} onSubmit={this.handleSubmit}>
-          <Form.Input
-            type="text"
-            placeholder="enter username"
-            name="username"
-            onChange={this.handleChange}
-            value={this.state.username}
-          />
-          <Form.Input
-            type="password"
-            placeholder="enter password"
-            name="password"
-            onChange={this.handleChange}
-            value={this.state.password}
-          />
-          <Form.Input
-            type="password"
-            placeholder="confirm password"
-            name="passwordConfirm"
-            onChange={this.handleChange}
-            value={this.state.passwordConfirm}
-          />
+          <Form.Group widths="equal">
+            <Form.Input
+              type="text"
+              placeholder="enter username"
+              name="username"
+              onChange={this.handleChange}
+              value={this.state.username}
+            />
+            <Form.Dropdown
+              onChange={this.handleDropdownChange}
+              icon="world"
+              className="icon right dropdown"
+              selection
+              search
+              placeholder="Select language!"
+              options={languageOptions}
+            />
+          </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Input
+              type="password"
+              placeholder="enter password"
+              name="password"
+              onChange={this.handleChange}
+              value={this.state.password}
+            />
+            <Form.Input
+              type="password"
+              placeholder="confirm password"
+              name="passwordConfirm"
+              onChange={this.handleChange}
+              value={this.state.passwordConfirm}
+            />
+          </Form.Group>
           <Button type="submit" style={{ display: "none" }}>
             submit
           </Button>
           <Message error content={this.state.errorMsg} />
-          <Dropdown
-            onChange={this.handleDropdownChange}
-            className="icon right dropdown"
-            value={this.state.languageCodeSelection}
-            selection
-            search
-            placeholder="Select language!"
-            icon="world"
-            options={languageOptions}
-          />
         </Form>
         <p style={{ color: "white", textAlign: "center", fontWeight: "bold" }}>
           Already have an account?&nbsp;

@@ -22,6 +22,7 @@ export const signUp = signUpInfo => {
         if (data.error) {
           console.log("SignUp error: ", data.error);
         } else {
+          console.log(data);
           localStorage.setItem("token", data.jwt);
           const userData = parseUserData(data);
           dispatch({ type: "LOGIN_USER", payload: userData });

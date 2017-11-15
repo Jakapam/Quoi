@@ -6,6 +6,7 @@ const translate = new Translate({
 const translateFn = require("./translate");
 const languagesToTransmit = ["en"];
 const Room = require("./models/room");
+const User = require("./models/user");
 var room;
 
 Room.findOne({ name: "Room1" }, (err, foundRoom) => {
@@ -122,6 +123,14 @@ module.exports = io => {
         }
       });
       io.emit("userlist", users);
+
+      User.findOne({ username: client.username }, (err, user) => {
+        if (user) {
+          user.language = client.language;
+          user.language_code = client.languageCode;
+          user.save();
+        }
+      });
     });
 
     client.on("disconnect", () => {

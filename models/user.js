@@ -3,7 +3,8 @@ const mongoose = require("./index").mongoose;
 const userSchema = mongoose.Schema({
   username: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   password_digest: {
     type: String,

@@ -4,7 +4,7 @@
   "description": "Node server for multi-language chat application",
   "main": "server.js",
   "author": "Justin M",
-  "proxy": "http://192.168.2.40:3000/",
+  "proxy": "https://192.168.2.40:3000/",
   "license": "MIT",
   "private": false,
   "scripts": {
