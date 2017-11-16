@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Image, Dropdown } from "semantic-ui-react";
 import logo from "../chatsylogo.png";
 import { connect } from "react-redux";
+import { fetchLanguages } from "../actions/languages";
 
 const SpeechRecognition = window.webkitSpeechRecognition;
 
@@ -16,6 +17,8 @@ class SpeechTranslator extends Component {
   };
 
   componentDidMount() {
+    this.props.fetchLanguages();
+
     let recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.lang = "en";
@@ -195,4 +198,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(SpeechTranslator);
+export default connect(mapStateToProps, { fetchLanguages })(SpeechTranslator);

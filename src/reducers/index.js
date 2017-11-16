@@ -13,10 +13,7 @@ const appReducer = combineReducers({
 
 export default (state, action) => {
   if (action.type === "LOGOUT_USER") {
-    state.transmissions.socket.disconnect();
-    state.transmissions = undefined;
-    state.rooms = undefined;
-    state.user = undefined;
+    state = undefined;
     localStorage.removeItem("token");
   }
 

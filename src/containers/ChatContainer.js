@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import RoomContainer from "./RoomContainer";
 import { createSocket } from "../actions/transmissions";
-import { setLanguage } from "../actions/languages";
+import { setLanguage, fetchLanguages } from "../actions/languages";
+import { logout } from "../actions/users";
 import { connect } from "react-redux";
 import { Image } from "semantic-ui-react";
 import title from "../fulltitle.png";
-import LogoutButton from "./LogoutButton";
+import LogoutButton from "../components/LogoutButton";
 
 class ChatContainer extends Component {
   componentWillMount() {
@@ -15,6 +16,7 @@ class ChatContainer extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchLanguages();
     this.props.setLanguage(this.props.languageCode);
   }
 
@@ -33,7 +35,7 @@ class ChatContainer extends Component {
           transform: "translate(-50%,-50%)"
         }}
         className="animated fadeIn">
-        <LogoutButton />
+        <LogoutButton logout={this.props.logout} />
         <Image src={title} style={imgStyle} size="small" />
         <RoomContainer />
       </div>
@@ -52,5 +54,7 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   createSocket,
-  setLanguage
+  setLanguage,
+  fetchLanguages,
+  logout
 })(ChatContainer);

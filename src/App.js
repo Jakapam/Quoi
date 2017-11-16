@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchLanguages } from "./actions/languages";
 import { setUser } from "./actions/users";
 import ChatContainer from "./containers/ChatContainer";
 import { Route, withRouter } from "react-router-dom";
@@ -14,10 +13,6 @@ import {
 } from "./utils/authentication";
 
 class App extends Component {
-  componentWillMount() {
-    this.props.fetchLanguages();
-  }
-
   componentDidMount() {
     if (localStorage.getItem("token")) {
       this.props.setUser(localStorage.getItem("token"));
@@ -41,6 +36,4 @@ const mapStateToProps = state => {
   return { users: state.users };
 };
 
-export default withRouter(
-  connect(mapStateToProps, { fetchLanguages, setUser })(App)
-);
+export default withRouter(connect(mapStateToProps, { setUser })(App));
