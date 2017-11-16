@@ -4,29 +4,35 @@
 }
 
 body {
-  background-color: #9370DB
+  background-color: #9370db;
 }
 
 .quarterSecondDelay {
-  -webkit-animation-delay: .25s;
-  -moz-animation-delay: .25s;
-  animation-delay: .25s;
+  -webkit-animation-delay: 0.25s;
+  -moz-animation-delay: 0.25s;
+  animation-delay: 0.25s;
 }
 
 .halfSecondDelay {
-  -webkit-animation-delay: .5s;
-  -moz-animation-delay: .5s;
-  animation-delay: .5s;
+  -webkit-animation-delay: 0.5s;
+  -moz-animation-delay: 0.5s;
+  animation-delay: 0.5s;
 }
 
 .threeQuarterSecondDelay {
-  -webkit-animation-delay: .75s;
-  -moz-animation-delay: .75s;
-  animation-delay: .75s;
+  -webkit-animation-delay: 0.75s;
+  -moz-animation-delay: 0.75s;
+  animation-delay: 0.75s;
 }
 
 .oneSecondDelay {
   -webkit-animation-delay: 1s;
   -moz-animation-delay: 1s;
   animation-delay: 1s;
+}
+
+@media screen and (min-width: 401px) and (max-width: 1024px) {
+  .hide-on-mobile {
+    display: none;
+  }
 }

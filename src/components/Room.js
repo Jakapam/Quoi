@@ -11,7 +11,7 @@ const Room = props => {
       <Container>
         <Grid>
           <Grid.Row>
-            <Grid.Column width={13}>
+            <Grid.Column mobile={16} computer={13}>
               <MsgList
                 scrollRef={props.scrollRef}
                 incoming={props.incoming}
@@ -19,15 +19,15 @@ const Room = props => {
                 system={props.system}
               />
             </Grid.Column>
-            <Grid.Column width={3}>
+            <Grid.Column computer={3} only="large screen">
               <UserList users={props.users} />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={13}>
+            <Grid.Column computer={13} mobile={10}>
               <MessageInput />
             </Grid.Column>
-            <Grid.Column width={3} floated="right">
+            <Grid.Column mobile={6} computer={3} floated="right">
               <LanguageSelector />
             </Grid.Column>
           </Grid.Row>

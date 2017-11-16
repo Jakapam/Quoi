@@ -36,7 +36,12 @@ class ChatContainer extends Component {
         }}
         className="animated fadeIn">
         <LogoutButton logout={this.props.logout} />
-        <Image src={title} style={imgStyle} size="small" />
+        <Image
+          className="hide-on-mobile"
+          src={title}
+          style={imgStyle}
+          size="small"
+        />
         <RoomContainer />
       </div>
     );

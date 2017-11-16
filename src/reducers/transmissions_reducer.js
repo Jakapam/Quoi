@@ -15,7 +15,7 @@ export default (
 ) => {
   switch (action.type) {
     case "CREATE_SOCKET":
-      const socket = openSocket(`https://localhost:3000`);
+      const socket = openSocket(`https://192.168.2.40:3000`);
       return { ...state, socket: socket };
     case "CONSUME_INCOMING_BULK_MSGS":
       return {
