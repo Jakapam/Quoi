@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Table of Contents
 
 - [Overview](#overview)
-- [Usage] (#usage)
+- [Usage](#usage)
 
 ## Overview
 
